@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Accessorial Agent</title>
+</head>
+<body>
+
+<h2>Accessorial Recommendation Agent</h2>
+
+<button onclick="run()">Run Agent</button>
+
+<pre id="output"></pre>
+
+<script>
+async function run() {
+    const res = await fetch('/api/recommend', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            shipment_mode: "LTL",
+            location_type: "hospital",
+            has_loading_dock: false,
+            has_forklift: false
+        })
+    });
+
+    const data = await res.json();
+    document.getElementById('output').innerText = JSON.stringify(data, null, 2);
+}
+</script>
+
+</body>
+</html>
